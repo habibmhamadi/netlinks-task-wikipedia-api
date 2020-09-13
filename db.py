@@ -23,7 +23,7 @@ class DB():
         except lite.Error:
             print(lite.Error)
 
-    def showAll(self,order='id',limit=5):
+    def showAll(self,order='id',limit=10):
         try:
             cur = self.con.cursor()
             data = (order,limit)

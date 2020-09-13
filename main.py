@@ -4,6 +4,8 @@ from re import fullmatch, sub
 from shutil import copy
 from os import path, mkdir
 from db import DB
+import xlsxwriter as xl
+
 
 http = PoolManager()
 con = DB()
@@ -85,13 +87,35 @@ def get_backup():
         else: print('Error, DB file not found')
     except Exception as e:
         print(e)
-                
+
+
+def write_to_excel():
+    if not path.isdir('excel'):
+        mkdir('excel')
+    wk = xl.Workbook('articles.xlsx')
+    ws = wk.add_worksheet()
+    ws.set_column('B:B',20)
+    ws.set_column('C:C',40)
+    bold = wk.add_format({'bold': True})
+    ws.write('A1','ID',bold)
+    ws.write('B1','TITLE',bold)
+    ws.write('C1','DESCRIPTION',bold)
+    data = con.showAll()
+    j = 0
+    for i in data:
+        ws.write(j+1,0,i[0])
+        ws.write(j+1,1,i[1])
+        ws.write(j+1,2,i[2])
+        j = j + 1
+    wk.close()
+    print('\nExcel file created!')
 
 
 while True:
-    a = input('\nEnter 1 for local DB\nEnter 2 for random articles from the WEB\nEnter 3 to backup local DB\nEnter q to quit: ')
+    a = input('\nEnter 1 for local DB\nEnter 2 for random articles from the WEB\nEnter 3 to backup local DB\nEnter 4 to create Excel sheet\nEnter q to quit: ')
     if a=='1': show_db_articles()
     elif a=='2': show_web_articles()
     elif a=='3': get_backup()
+    elif a=='4': write_to_excel()
     elif a=='q': print('\nbye!'); break
     else: print('\nInvalid input')
