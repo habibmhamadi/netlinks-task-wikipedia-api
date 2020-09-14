@@ -4,27 +4,35 @@ This is a python3 command line program for fetching random articles from [Wikipe
 
 ## Features
     
-    - Fetch article online
-    - Save article to local sqlite database
-    - Fetch article from local Database
-    - Read article
-    - Delete article
-    - Search article
-    - Backup database
-    - Creates excel sheet for articles
+- Fetch article online
+- Save article to local sqlite database
+- Fetch article from local Database
+- Read article
+- Delete article
+- Search article
+- Backup database
+- Creates excel sheet for articles
 
-## Modules Used
 
-  **urlib3**  for http request
+## required dependency
 
-  **sqlite3**  for storing offline data
+install *xlsxwriter* modul for python3
 
-  **json**  for parsing json data
+```
+pip3 install xlsxwriter
+```
 
-  **re**  regular expression for removing html tags
+## Usage
 
-  **shutil**  for taking backup
+```python
+from wiki import WikiApp
 
-  **os**  for making directory
-  
-  **XlsxWriter**  for creating and reading excel files
+#Create a new object of WikiApp and call start() method
+app = Wiki()
+app.start()
+```
+
+## Contribution
+
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository.
+
